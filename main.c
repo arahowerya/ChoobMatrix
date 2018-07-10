@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <xc.h>
 #include <pic16f722a.h>
 //Trying to bash the ide into believing these files exist and that it should read them...
 
@@ -17,6 +16,8 @@
  * 
  */
 
+// Function prototypes:
+void delay(int d);
 
 
 void gpio_init(void)
@@ -57,10 +58,30 @@ int main(int argc, char** argv) {
     TXSTAbits.TXEN = 1;
     
     gpio_init();
+    
+    // Port is set to output in gpio_init() - set high here
+    PORTAbits.RA1 = 1;
+    
     while(1)
     {
         processDisplay();
+        /*Trying, and failing, to toggle an LED...*/
+        PORTAbits.RA1 ^= 1;
+        delay(1000);
     }
     return (EXIT_SUCCESS);
 }
 
+// Delay routine
+void delay(int d)
+{
+    int i;  // Declare variable to be used in the loop
+
+    while(d)    // While d > 0
+    {
+        i = 100;    // set i to 100 for inner loop
+        while(i--);    // while i > 0
+
+        d--;    // decrement d
+    }
+}

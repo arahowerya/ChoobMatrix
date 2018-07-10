@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=ChoobMatrix.X
+PROJECTNAME=ChoobMatrix
 
 # Active Configuration
 DEFAULTCONF=default
