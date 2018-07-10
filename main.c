@@ -7,8 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include </Applications/microchip/xc8/v2.00/pic/include/xc.h>
-#include </Applications/microchip/xc8/v2.00/pic/include/pic16f722a.h>
+#include <xc.h>
+#include <pic16f722a.h>
 //Trying to bash the ide into believing these files exist and that it should read them...
 
 #include "displaydriver.h"
@@ -54,6 +54,8 @@ void gpio_init(void)
 
 int main(int argc, char** argv) {
 
+    TXSTAbits.TXEN = 1;
+    
     gpio_init();
     while(1)
     {

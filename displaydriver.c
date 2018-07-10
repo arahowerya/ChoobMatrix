@@ -5,11 +5,13 @@
  * Created on July 8, 2018, 12:45 PM
  */
 
+
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
-#include </Applications/microchip/xc8/v2.00/pic/include/xc.h>
-#include </Applications/microchip/xc8/v2.00/pic/include/pic16f722a.h>
+#include <xc.h>
+#include <pic16f722a.h>
 
 #include "pinout.h"
 #include "ascii7seg.h"
@@ -19,9 +21,16 @@ static struct gD
     uint8_t out[10]; //7seg data
     uint8_t raw[10]; //ASCII or other data
 
-    uint8_t muxPos = 0;
-    uint8_t muxFlag = 0;
+    uint8_t muxPos;
+    uint8_t muxFlag;
 }gD;
+
+
+void displalyinit(void)
+{
+    gD.muxPos = 0;
+    gD.muxFlag = 0;
+}
 
 
 void muxInterrupt(void)

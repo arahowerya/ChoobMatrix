@@ -1,45 +1,61 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"1289 /Applications/microchip/xc8/v1.45/include/pic16f722a.h
-[s S57 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S57 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 TRISA7 ]
-"1288
-[u S56 `S57 1 ]
-[n S56 . . ]
-"1300
-[v _TRISAbits `VS56 ~T0 @X0 0 e@133 ]
-"1351
-[s S59 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S59 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
-"1350
-[u S58 `S59 1 ]
-[n S58 . . ]
-"1362
-[v _TRISBbits `VS58 ~T0 @X0 0 e@134 ]
-"1413
-[s S61 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S61 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 TRISC6 TRISC7 ]
-"1412
-[u S60 `S61 1 ]
-[n S60 . . ]
-"1424
-[v _TRISCbits `VS60 ~T0 @X0 0 e@135 ]
-[p mainexit ]
-"2479
-[s S107 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S107 . TX9D TRMT BRGH . SYNC TXEN TX9 CSRC ]
-"2489
-[s S108 :1 `uc 1 :5 `uc 1 :1 `uc 1 ]
-[n S108 . TXD8 . nTX8 ]
-"2494
-[s S109 :6 `uc 1 :1 `uc 1 ]
-[n S109 . . TX8_9 ]
-"2478
-[u S106 `S107 1 `S108 1 `S109 1 ]
-[n S106 . . . . ]
-"2499
-[v _TXSTAbits `VS106 ~T0 @X0 0 e@152 ]
-"16 displaydriver.h
-[v _processDisplay `(v ~T0 @X0 0 ef ]
+"19 displaydriver.c
+[s S132 `uc -> 10 `i `uc -> 10 `i `uc 1 `uc 1 ]
+[n S132 gD out raw muxPos muxFlag ]
+"14 /Applications/microchip/xc8/v1.45/include/string.h
+[v _memcpy `(*v ~T0 @X0 0 ef3`*v`*Cv`ui ]
+"170 /Applications/microchip/xc8/v1.45/include/pic16f722a.h
+[s S7 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S7 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 RA7 ]
+"169
+[u S6 `S7 1 ]
+[n S6 . . ]
+"181
+[v _PORTAbits `VS6 ~T0 @X0 0 e@5 ]
+"232
+[s S9 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S9 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
+"231
+[u S8 `S9 1 ]
+[n S8 . . ]
+"243
+[v _PORTBbits `VS8 ~T0 @X0 0 e@6 ]
+"294
+[s S11 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S11 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
+"293
+[u S10 `S11 1 ]
+[n S10 . . ]
+"305
+[v _PORTCbits `VS10 ~T0 @X0 0 e@7 ]
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -70,59 +86,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;stdlib.h: 7: typedef unsigned short wchar_t;
-[; ;stdlib.h: 15: typedef struct {
-[; ;stdlib.h: 16: int rem;
-[; ;stdlib.h: 17: int quot;
-[; ;stdlib.h: 18: } div_t;
-[; ;stdlib.h: 19: typedef struct {
-[; ;stdlib.h: 20: unsigned rem;
-[; ;stdlib.h: 21: unsigned quot;
-[; ;stdlib.h: 22: } udiv_t;
-[; ;stdlib.h: 23: typedef struct {
-[; ;stdlib.h: 24: long quot;
-[; ;stdlib.h: 25: long rem;
-[; ;stdlib.h: 26: } ldiv_t;
-[; ;stdlib.h: 27: typedef struct {
-[; ;stdlib.h: 28: unsigned long quot;
-[; ;stdlib.h: 29: unsigned long rem;
-[; ;stdlib.h: 30: } uldiv_t;
-[; ;stdlib.h: 53: extern double atof(const char *);
-[; ;stdlib.h: 54: extern double strtod(const char *, const char **);
-[; ;stdlib.h: 55: extern int atoi(const char *);
-[; ;stdlib.h: 56: extern unsigned xtoi(const char *);
-[; ;stdlib.h: 57: extern long atol(const char *);
-[; ;stdlib.h: 58: extern long strtol(const char *, char **, int);
-[; ;stdlib.h: 60: extern int rand(void);
-[; ;stdlib.h: 61: extern void srand(unsigned int);
-[; ;stdlib.h: 62: extern void * calloc(size_t, size_t);
-[; ;stdlib.h: 63: extern div_t div(int numer, int denom);
-[; ;stdlib.h: 64: extern udiv_t udiv(unsigned numer, unsigned denom);
-[; ;stdlib.h: 65: extern ldiv_t ldiv(long numer, long denom);
-[; ;stdlib.h: 66: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
-[; ;stdlib.h: 67: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
-[; ;stdlib.h: 68: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
-[; ;stdlib.h: 69: extern unsigned int _rotl(unsigned int value, unsigned int shift);
-[; ;stdlib.h: 70: extern unsigned int _rotr(unsigned int value, unsigned int shift);
-[; ;stdlib.h: 75: extern void * malloc(size_t);
-[; ;stdlib.h: 76: extern void free(void *);
-[; ;stdlib.h: 77: extern void * realloc(void *, size_t);
-[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
-[; ;stdlib.h: 86: extern int atexit(void (*)(void));
-[; ;stdlib.h: 87: extern char * getenv(const char *);
-[; ;stdlib.h: 88: extern char ** environ;
-[; ;stdlib.h: 89: extern int system(char *);
-[; ;stdlib.h: 90: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
-[; ;stdlib.h: 91: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
-[; ;stdlib.h: 92: extern int abs(int);
-[; ;stdlib.h: 93: extern long labs(long);
-[; ;stdlib.h: 95: extern char * itoa(char * buf, int val, int base);
-[; ;stdlib.h: 96: extern char * utoa(char * buf, unsigned val, int base);
-[; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
-[; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
-[; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
+[; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
+[; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
+[; ;string.h: 16: extern void * memset(void *, int, size_t);
+[; ;string.h: 36: extern char * strcat(char *, const char *);
+[; ;string.h: 37: extern char * strcpy(char *, const char *);
+[; ;string.h: 38: extern char * strncat(char *, const char *, size_t);
+[; ;string.h: 39: extern char * strncpy(char *, const char *, size_t);
+[; ;string.h: 40: extern char * strdup(const char *);
+[; ;string.h: 41: extern char * strtok(char *, const char *);
+[; ;string.h: 44: extern int memcmp(const void *, const void *, size_t);
+[; ;string.h: 45: extern int strcmp(const char *, const char *);
+[; ;string.h: 46: extern int stricmp(const char *, const char *);
+[; ;string.h: 47: extern int strncmp(const char *, const char *, size_t);
+[; ;string.h: 48: extern int strnicmp(const char *, const char *, size_t);
+[; ;string.h: 49: extern void * memchr(const void *, int, size_t);
+[; ;string.h: 50: extern size_t strcspn(const char *, const char *);
+[; ;string.h: 51: extern char * strpbrk(const char *, const char *);
+[; ;string.h: 52: extern size_t strspn(const char *, const char *);
+[; ;string.h: 53: extern char * strstr(const char *, const char *);
+[; ;string.h: 54: extern char * stristr(const char *, const char *);
+[; ;string.h: 55: extern char * strerror(int);
+[; ;string.h: 56: extern size_t strlen(const char *);
+[; ;string.h: 57: extern char * strchr(const char *, int);
+[; ;string.h: 58: extern char * strichr(const char *, int);
+[; ;string.h: 59: extern char * strrchr(const char *, int);
+[; ;string.h: 60: extern char * strrichr(const char *, int);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
+[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f722a.h: 50: extern volatile unsigned char INDF @ 0x000;
 "52 /Applications/microchip/xc8/v1.45/include/pic16f722a.h
 [; ;pic16f722a.h: 52: asm("INDF equ 00h");
@@ -1383,127 +1375,638 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 193: extern __bank0 unsigned char __resetbits;
 [; ;pic.h: 194: extern __bank0 __bit __powerdown;
 [; ;pic.h: 195: extern __bank0 __bit __timeout;
-[; ;displaydriver.h: 16: void processDisplay(void);
-"22 main.c
-[v _gpio_init `(v ~T0 @X0 1 ef ]
+"18 ascii7seg.h
+[v _ASCII7SEG `Cuc ~T0 @X0 -> 256 `i e ]
+[i _ASCII7SEG
+:U ..
+"20
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+"21
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+"22
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "23
-{
-[; ;main.c: 22: void gpio_init(void)
-[; ;main.c: 23: {
-[e :U _gpio_init ]
-[f ]
-[; ;main.c: 24: TRISAbits.TRISA0 = 0;
+-> -> 250 `i `uc
+-> -> 96 `i `uc
+-> -> 215 `i `uc
+-> -> 242 `i `uc
+-> -> 102 `i `uc
+-> -> 182 `i `uc
+-> -> 190 `i `uc
+-> -> 224 `i `uc
+-> -> 254 `i `uc
+-> -> 186 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "24
-[e = . . _TRISAbits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 25: TRISAbits.TRISA1 = 0;
+-> -> 0 `i `uc
+-> -> 238 `i `uc
+-> -> 62 `i `uc
+-> -> 26 `i `uc
+-> -> 122 `i `uc
+-> -> 158 `i `uc
+-> -> 142 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "25
-[e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
-[; ;main.c: 26: TRISAbits.TRISA2 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "26
-[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
-[; ;main.c: 27: TRISAbits.TRISA3 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "27
-[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
-[; ;main.c: 28: TRISAbits.TRISA4 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "28
-[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
-[; ;main.c: 29: TRISAbits.TRISA5 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "29
-[e = . . _TRISAbits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 30: TRISAbits.TRISA6 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "30
-[e = . . _TRISAbits 0 6 -> -> 0 `i `uc ]
-[; ;main.c: 31: TRISAbits.TRISA7 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "31
-[e = . . _TRISAbits 0 7 -> -> 0 `i `uc ]
-[; ;main.c: 33: TRISBbits.TRISB0 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+"32
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "33
-[e = . . _TRISBbits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 34: TRISBbits.TRISB1 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "34
-[e = . . _TRISBbits 0 1 -> -> 0 `i `uc ]
-[; ;main.c: 35: TRISBbits.TRISB2 = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
 "35
-[e = . . _TRISBbits 0 2 -> -> 0 `i `uc ]
-[; ;main.c: 36: TRISBbits.TRISB3 = 0;
-"36
-[e = . . _TRISBbits 0 3 -> -> 0 `i `uc ]
-[; ;main.c: 37: TRISBbits.TRISB4 = 0;
-"37
-[e = . . _TRISBbits 0 4 -> -> 0 `i `uc ]
-[; ;main.c: 38: TRISBbits.TRISB5 = 0;
-"38
-[e = . . _TRISBbits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 39: TRISBbits.TRISB6 = 0;
-"39
-[e = . . _TRISBbits 0 6 -> -> 0 `i `uc ]
-[; ;main.c: 40: TRISBbits.TRISB7 = 0;
-"40
-[e = . . _TRISBbits 0 7 -> -> 0 `i `uc ]
-[; ;main.c: 42: TRISCbits.TRISC0 = 0;
-"42
-[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 43: TRISCbits.TRISC1 = 0;
-"43
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;main.c: 44: TRISCbits.TRISC2 = 0;
-"44
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;main.c: 45: TRISCbits.TRISC3 = 1;
-"45
-[e = . . _TRISCbits 0 3 -> -> 1 `i `uc ]
-[; ;main.c: 46: TRISCbits.TRISC4 = 0;
-"46
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;main.c: 47: TRISCbits.TRISC5 = 0;
-"47
-[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 48: TRISCbits.TRISC6 = 1;
-"48
-[e = . . _TRISCbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 49: TRISCbits.TRISC7 = 1;
-"49
-[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 50: }
-"50
-[e :UE 136 ]
-}
-[v $root$_main `(v ~T0 @X0 0 e ]
-"55
-[v _main `(i ~T0 @X0 1 ef2`i`**uc ]
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+]
+[; ;ascii7seg.h: 18: const uint8_t ASCII7SEG[256] = {
+[; ;ascii7seg.h: 20: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 21: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 22: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 23: 0xFA, 0x60, 0xD7, 0xF2, 0x66, 0xB6, 0xBE, 0xE0, 0xFE, 0xBA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 24: 0x00, 0xEE, 0x3E, 0x1A, 0x7A, 0x9E, 0x8E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 25: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 26: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 27: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 28: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 29: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 30: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 31: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 32: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 33: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 34: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 35: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+[; ;ascii7seg.h: 36: };
+"26 displaydriver.c
+[v _gD `S132 ~T0 @X0 1 s ]
+[; ;displaydriver.c: 19: static struct gD
+[; ;displaydriver.c: 20: {
+[; ;displaydriver.c: 21: uint8_t out[10];
+[; ;displaydriver.c: 22: uint8_t raw[10];
+[; ;displaydriver.c: 24: uint8_t muxPos;
+[; ;displaydriver.c: 25: uint8_t muxFlag;
+[; ;displaydriver.c: 26: }gD;
+"29
+[v _displalyinit `(v ~T0 @X0 1 ef ]
+"30
 {
-[; ;main.c: 55: int main(int argc, char** argv) {
-[e :U _main ]
-[v _argc `i ~T0 @X0 1 r1 ]
-[v _argv `**uc ~T0 @X0 1 r2 ]
+[; ;displaydriver.c: 29: void displalyinit(void)
+[; ;displaydriver.c: 30: {
+[e :U _displalyinit ]
 [f ]
-[; ;main.c: 57: TXSTAbits.TXEN = 1;
-"57
-[e = . . _TXSTAbits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 59: gpio_init();
-"59
-[e ( _gpio_init ..  ]
-[; ;main.c: 60: while(1)
-"60
-[e :U 139 ]
-[; ;main.c: 61: {
-"61
-{
-[; ;main.c: 62: processDisplay();
-"62
-[e ( _processDisplay ..  ]
-"63
+[; ;displaydriver.c: 31: gD.muxPos = 0;
+"31
+[e = . _gD 2 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 32: gD.muxFlag = 0;
+"32
+[e = . _gD 3 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 33: }
+"33
+[e :UE 133 ]
 }
-[e :U 138 ]
+"36
+[v _muxInterrupt `(v ~T0 @X0 1 ef ]
+"37
+{
+[; ;displaydriver.c: 36: void muxInterrupt(void)
+[; ;displaydriver.c: 37: {
+[e :U _muxInterrupt ]
+[f ]
+[; ;displaydriver.c: 38: gD.muxFlag = 1;
+"38
+[e = . _gD 3 -> -> 1 `i `uc ]
+[; ;displaydriver.c: 39: }
+"39
+[e :UE 134 ]
+}
+"41
+[v _loadDisplay `(v ~T0 @X0 1 ef1`*uc ]
+"42
+{
+[; ;displaydriver.c: 41: void loadDisplay(uint8_t *data)
+[; ;displaydriver.c: 42: {
+[e :U _loadDisplay ]
+"41
+[v _data `*uc ~T0 @X0 1 r1 ]
+"42
+[f ]
+[; ;displaydriver.c: 43: memcpy(gD.raw, data, 10);
+"43
+[e ( _memcpy (3 , , -> &U . _gD 1 `*v -> _data `*Cv -> -> 10 `i `ui ]
+[; ;displaydriver.c: 44: for(int i = 0; i < 10; i++)
+"44
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 10 `i 136  ]
+[e $U 137  ]
+"45
+[e :U 136 ]
+[; ;displaydriver.c: 45: {
+{
+[; ;displaydriver.c: 46: gD.out[i] = ASCII7SEG[gD.raw[i]];
+"46
+[e = *U + &U . _gD 0 * -> -> _i `ui `ux -> -> # *U &U . _gD 0 `ui `ux *U + &U _ASCII7SEG * -> *U + &U . _gD 1 * -> -> _i `ui `ux -> -> # *U &U . _gD 1 `ui `ux `ux -> -> # *U &U _ASCII7SEG `ui `ux ]
+[; ;displaydriver.c: 47: if(gD.raw[i+1] == '.')
+"47
+[e $ ! == -> *U + &U . _gD 1 * -> -> + _i -> 1 `i `ui `ux -> -> # *U &U . _gD 1 `ui `ux `ui -> 46 `ui 139  ]
+[; ;displaydriver.c: 48: gD.out[i] |= 0x01;
+"48
+[e =| *U + &U . _gD 0 * -> -> _i `ui `ux -> -> # *U &U . _gD 0 `ui `ux -> -> 1 `i `uc ]
+[e :U 139 ]
+"49
+}
+"44
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 10 `i 136  ]
+[e :U 137 ]
+"49
+}
+[; ;displaydriver.c: 49: }
+[; ;displaydriver.c: 50: }
+"50
+[e :UE 135 ]
+}
+"52
+[v _enableDigit `(v ~T0 @X0 1 ef1`uc ]
+"53
+{
+[; ;displaydriver.c: 52: void enableDigit(uint8_t pos)
+[; ;displaydriver.c: 53: {
+[e :U _enableDigit ]
+"52
+[v _pos `uc ~T0 @X0 1 r1 ]
+"53
+[f ]
+[; ;displaydriver.c: 54: PORTAbits.RA0 = 0;
+"54
+[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 55: PORTAbits.RA1 = 0;
+"55
+[e = . . _PORTAbits 0 1 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 56: PORTAbits.RA2 = 0;
+"56
+[e = . . _PORTAbits 0 2 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 57: PORTBbits.RB6 = 0;
+"57
+[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 58: PORTBbits.RB7 = 0;
+"58
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 59: switch(pos)
+"59
+[e $U 142  ]
+[; ;displaydriver.c: 60: {
 "60
-[e $U 139  ]
-[e :U 140 ]
-[; ;main.c: 63: }
-[; ;main.c: 64: return (0);
+{
+[; ;displaydriver.c: 61: default:
+"61
+[e :U 143 ]
+[; ;displaydriver.c: 62: case(0):
+"62
+[e :U 144 ]
+[; ;displaydriver.c: 63: PORTBbits.RB7 = 1;
+"63
+[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
+[; ;displaydriver.c: 64: case(1):
 "64
-[e ) -> 0 `i ]
-[e $UE 137  ]
-[; ;main.c: 65: }
+[e :U 145 ]
+[; ;displaydriver.c: 65: PORTBbits.RB6 = 1;
 "65
-[e :UE 137 ]
+[e = . . _PORTBbits 0 6 -> -> 1 `i `uc ]
+[; ;displaydriver.c: 66: case(2):
+"66
+[e :U 146 ]
+[; ;displaydriver.c: 67: PORTAbits.RA0 = 1;
+"67
+[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
+[; ;displaydriver.c: 68: case(3):
+"68
+[e :U 147 ]
+[; ;displaydriver.c: 69: PORTAbits.RA1 = 1;
+"69
+[e = . . _PORTAbits 0 1 -> -> 1 `i `uc ]
+[; ;displaydriver.c: 70: case(4):
+"70
+[e :U 148 ]
+[; ;displaydriver.c: 71: PORTAbits.RA2 = 1;
+"71
+[e = . . _PORTAbits 0 2 -> -> 1 `i `uc ]
+"72
+}
+[; ;displaydriver.c: 72: }
+[e $U 141  ]
+"59
+[e :U 142 ]
+[e [\ _pos , $ -> -> 0 `i `uc 144
+ , $ -> -> 1 `i `uc 145
+ , $ -> -> 2 `i `uc 146
+ , $ -> -> 3 `i `uc 147
+ , $ -> -> 4 `i `uc 148
+ 143 ]
+"72
+[e :U 141 ]
+[; ;displaydriver.c: 73: }
+"73
+[e :UE 140 ]
+}
+"76
+[v _muxDigit `(v ~T0 @X0 1 ef2`uc`uc ]
+"77
+{
+[; ;displaydriver.c: 76: void muxDigit(uint8_t d1, uint8_t d2)
+[; ;displaydriver.c: 77: {
+[e :U _muxDigit ]
+"76
+[v _d1 `uc ~T0 @X0 1 r1 ]
+[v _d2 `uc ~T0 @X0 1 r2 ]
+"77
+[f ]
+[; ;displaydriver.c: 78: if(d1 && 0x80 > 0)
+"78
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 128 `i -> 0 `i 150  ]
+[; ;displaydriver.c: 79: PORTCbits.RC2 = 1;
+"79
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[e :U 150 ]
+[; ;displaydriver.c: 80: if(d1 && 0x40 > 0)
+"80
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 64 `i -> 0 `i 151  ]
+[; ;displaydriver.c: 81: PORTCbits.RC0 = 1;
+"81
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[e :U 151 ]
+[; ;displaydriver.c: 82: if(d1 && 0x20 > 0)
+"82
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 32 `i -> 0 `i 152  ]
+[; ;displaydriver.c: 83: PORTAbits.RA4 = 1;
+"83
+[e = . . _PORTAbits 0 4 -> -> 1 `i `uc ]
+[e :U 152 ]
+[; ;displaydriver.c: 84: if(d1 && 0x10 > 0)
+"84
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 16 `i -> 0 `i 153  ]
+[; ;displaydriver.c: 85: PORTAbits.RA3 = 1;
+"85
+[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
+[e :U 153 ]
+[; ;displaydriver.c: 86: if(d1 && 0x08 > 0)
+"86
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 8 `i -> 0 `i 154  ]
+[; ;displaydriver.c: 87: PORTAbits.RA5 = 1;
+"87
+[e = . . _PORTAbits 0 5 -> -> 1 `i `uc ]
+[e :U 154 ]
+[; ;displaydriver.c: 88: if(d1 && 0x04 > 0)
+"88
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 4 `i -> 0 `i 155  ]
+[; ;displaydriver.c: 89: PORTAbits.RA6 = 1;
+"89
+[e = . . _PORTAbits 0 6 -> -> 1 `i `uc ]
+[e :U 155 ]
+[; ;displaydriver.c: 90: if(d1 && 0x02 > 0)
+"90
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 2 `i -> 0 `i 156  ]
+[; ;displaydriver.c: 91: PORTCbits.RC1 = 1;
+"91
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+[e :U 156 ]
+[; ;displaydriver.c: 92: if(d1 && 0x01 > 0)
+"92
+[e $ ! && != -> _d1 `i -> -> -> 0 `i `uc `i > -> 1 `i -> 0 `i 157  ]
+[; ;displaydriver.c: 93: PORTAbits.RA7 = 1;
+"93
+[e = . . _PORTAbits 0 7 -> -> 1 `i `uc ]
+[e :U 157 ]
+[; ;displaydriver.c: 95: if(d2 && 0x80 > 0)
+"95
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 128 `i -> 0 `i 158  ]
+[; ;displaydriver.c: 96: PORTCbits.RC5 = 1;
+"96
+[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
+[e :U 158 ]
+[; ;displaydriver.c: 97: if(d2 && 0x40 > 0)
+"97
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 64 `i -> 0 `i 159  ]
+[; ;displaydriver.c: 98: PORTCbits.RC4 = 1;
+"98
+[e = . . _PORTCbits 0 4 -> -> 1 `i `uc ]
+[e :U 159 ]
+[; ;displaydriver.c: 99: if(d2 && 0x20 > 0)
+"99
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 32 `i -> 0 `i 160  ]
+[; ;displaydriver.c: 100: PORTBbits.RB4 = 1;
+"100
+[e = . . _PORTBbits 0 4 -> -> 1 `i `uc ]
+[e :U 160 ]
+[; ;displaydriver.c: 101: if(d2 && 0x10 > 0)
+"101
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 16 `i -> 0 `i 161  ]
+[; ;displaydriver.c: 102: PORTBbits.RB5 = 1;
+"102
+[e = . . _PORTBbits 0 5 -> -> 1 `i `uc ]
+[e :U 161 ]
+[; ;displaydriver.c: 103: if(d2 && 0x08 > 0)
+"103
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 8 `i -> 0 `i 162  ]
+[; ;displaydriver.c: 104: PORTBbits.RB3 = 1;
+"104
+[e = . . _PORTBbits 0 3 -> -> 1 `i `uc ]
+[e :U 162 ]
+[; ;displaydriver.c: 105: if(d2 && 0x04 > 0)
+"105
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 4 `i -> 0 `i 163  ]
+[; ;displaydriver.c: 106: PORTBbits.RB1 = 1;
+"106
+[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
+[e :U 163 ]
+[; ;displaydriver.c: 107: if(d2 && 0x02 > 0)
+"107
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 2 `i -> 0 `i 164  ]
+[; ;displaydriver.c: 108: PORTBbits.RB0 = 1;
+"108
+[e = . . _PORTBbits 0 0 -> -> 1 `i `uc ]
+[e :U 164 ]
+[; ;displaydriver.c: 109: if(d2 && 0x01 > 0)
+"109
+[e $ ! && != -> _d2 `i -> -> -> 0 `i `uc `i > -> 1 `i -> 0 `i 165  ]
+[; ;displaydriver.c: 110: PORTBbits.RB2 = 1;
+"110
+[e = . . _PORTBbits 0 2 -> -> 1 `i `uc ]
+[e :U 165 ]
+[; ;displaydriver.c: 111: }
+"111
+[e :UE 149 ]
+}
+"113
+[v _processDisplay `(v ~T0 @X0 1 ef ]
+"114
+{
+[; ;displaydriver.c: 113: void processDisplay(void)
+[; ;displaydriver.c: 114: {
+[e :U _processDisplay ]
+[f ]
+[; ;displaydriver.c: 115: if(gD.muxFlag == 1)
+"115
+[e $ ! == -> . _gD 3 `i -> 1 `i 167  ]
+[; ;displaydriver.c: 116: {
+"116
+{
+[; ;displaydriver.c: 117: gD.muxFlag = 0;
+"117
+[e = . _gD 3 -> -> 0 `i `uc ]
+[; ;displaydriver.c: 118: if(gD.muxPos++ == 6)
+"118
+[e $ ! == -> ++ . _gD 2 -> -> 1 `i `uc `i -> 6 `i 168  ]
+[; ;displaydriver.c: 119: gD.muxPos = 0;
+"119
+[e = . _gD 2 -> -> 0 `i `uc ]
+[e :U 168 ]
+[; ;displaydriver.c: 120: enableDigit(gD.muxPos);
+"120
+[e ( _enableDigit (1 . _gD 2 ]
+[; ;displaydriver.c: 121: muxDigit(gD.out[gD.muxPos], gD.out[gD.muxPos+5]);
+"121
+[e ( _muxDigit (2 , *U + &U . _gD 0 * -> . _gD 2 `ux -> -> # *U &U . _gD 0 `ui `ux *U + &U . _gD 0 * -> -> + -> . _gD 2 `i -> 5 `i `ui `ux -> -> # *U &U . _gD 0 `ui `ux ]
+"122
+}
+[e :U 167 ]
+[; ;displaydriver.c: 122: }
+[; ;displaydriver.c: 123: }
+"123
+[e :UE 166 ]
 }
