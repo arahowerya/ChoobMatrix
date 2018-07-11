@@ -16,6 +16,8 @@
 #include "pinout.h"
 #include "ascii7seg.h"
 
+#include "displaydriver.h"
+
 static struct gD
 {
     uint8_t out[10U]; //7seg data
@@ -26,7 +28,7 @@ static struct gD
 }gD;
 
 
-void displalyinit(void)
+void displayinit(void)
 {
     gD.muxPos = 0U;
     gD.muxFlag = 0U;

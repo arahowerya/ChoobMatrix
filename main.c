@@ -6,19 +6,38 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <pic16f722a.h>
-//Trying to bash the ide into believing these files exist and that it should read them...
+#include <pic16f722.h>
 
 #include "displaydriver.h"
+
 
 /*
  * 
  */
 
+// Defines
+#define MAX_RX_BYTES 10
+
+// Variables
+//unsigned char volatile updateDisplay;
+//unsigned char volatile rcindex;
+//unsigned char volatile rcBuf[MAX_RX_BYTES];
+
+uint8_t volatile updateDisplay;
+uint8_t volatile rcindex;
+uint8_t volatile rcBuf[MAX_RX_BYTES];
+
 // Function prototypes:
 void delay(int d);
 
+void variable_init(){
+    updateDisplay = 0;
+    rcindex = 0;
+    memset(rcBuf, (int) 0, MAX_RX_BYTES);
+}
 
 void gpio_init(void)
 {
@@ -50,27 +69,58 @@ void gpio_init(void)
     TRISCbits.TRISC7 = 1;
 }
 
+void ausart_init(){
 
+    // Setup the Transmit Status & Control Register (TXSTA)
+    TXSTAbits.CSRC  = 0; // Slave mocde, clocked externally
+    TXSTAbits.TX9   = 0; // 9-bit transmission
+    TXSTAbits.TXEN  = 0; // Transmit enable bit
+    TXSTAbits.SYNC  = 1; // Synchronous mode
+    
+    // Setup the Receive Status & Control Register (RCSTA)
+    RCSTAbits.SPEN  = 1; // Serial Port Enabled
+    RCSTAbits.RX9   = 0; // 9-bit Receive Enable bit
+    RCSTAbits.SREN  = 1; // Single Receive Enable bit (1 = receive mode))
+    RCSTAbits.CREN  = 1; // Enable Continuous Receive Enable bit (1 = receive mode))
+    RCSTAbits.ADDEN = 0; //Address Detect Enable bit
+//    RCSTAbits.FERR // Framing Error bit
+//    RCSTAbits.OERR // Overrun Error bit
+//    RCSTAbits.RX9D // Ninth bit of Received data
+        
+}
 
+void ausart_isr_init(){
+    // Activate ISR for receive mode
+    PIE1bits.RCIE   = 1; // Receive Interrupt Enable
+    INTCONbits.GIE  = 1; // Global Interrupts Enable
+    INTCONbits.PEIE = 1; // PEripheral Interrupt Enable      
+}
 
 int main(int argc, char** argv) {
-
-    TXSTAbits.TXEN = 1;
     
+    variable_init();
     gpio_init();
+    ausart_init();
+    ausart_isr_init();
     
     // Port is set to output in gpio_init() - set high here
     PORTAbits.RA1 = 1;
     
     while(1)
     {
+        if(updateDisplay == 1U){
+            updateDisplay = 0;
+            loadDisplay(rcBuf);
+        }
         processDisplay();
+            
         /*Trying, and failing, to toggle an LED...*/
         PORTAbits.RA1 ^= 1;
         delay(1000);
     }
     return (EXIT_SUCCESS);
 }
+
 
 // Delay routine
 void delay(int d)
@@ -84,4 +134,22 @@ void delay(int d)
 
         d--;    // decrement d
     }
+}
+
+void interrupt isr_ausart(void){
+    
+    if(PIR1bits.RCIF){
+        // Check for Framing or Overrun Error
+        if(!RCSTAbits.FERR && !RCSTAbits.OERR){
+            // Valid data received
+            rcBuf[rcindex] = RCREG;
+
+            if(++rcindex > MAX_RX_BYTES){ // increment string index
+                rcindex = 0;
+                updateDisplay = 1;
+            }
+        }
+        PIR1bits.RCIF = 0; // Reset interrupt flag
+    }
+ 
 }
