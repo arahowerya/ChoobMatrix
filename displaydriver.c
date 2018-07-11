@@ -28,7 +28,7 @@ static struct gD
 }gD;
 
 
-void displayinit(void)
+void displayInit(void)
 {
     gD.muxPos = 0U;
     gD.muxFlag = 0U;

@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include <xc.h>
 #include <pic16f722a.h>
 #include <pic16f722.h>
 
@@ -22,20 +25,14 @@
 #define MAX_RX_BYTES 10
 
 // Variables
-//unsigned char volatile updateDisplay;
-//unsigned char volatile rcindex;
-//unsigned char volatile rcBuf[MAX_RX_BYTES];
-
 uint8_t volatile updateDisplay;
-uint8_t volatile rcindex;
-uint8_t volatile rcBuf[MAX_RX_BYTES];
+uint8_t rcBuf[MAX_RX_BYTES];
 
 // Function prototypes:
 void delay(int d);
 
 void variable_init(){
     updateDisplay = 0;
-    rcindex = 0;
     memset(rcBuf, (int) 0, MAX_RX_BYTES);
 }
 
@@ -103,6 +100,8 @@ int main(int argc, char** argv) {
     ausart_init();
     ausart_isr_init();
     
+    displayInit();
+    
     // Port is set to output in gpio_init() - set high here
     PORTAbits.RA1 = 1;
     
@@ -137,7 +136,7 @@ void delay(int d)
 }
 
 void interrupt isr_ausart(void){
-    
+    static uint8_t rcindex = 0;
     if(PIR1bits.RCIF){
         // Check for Framing or Overrun Error
         if(!RCSTAbits.FERR && !RCSTAbits.OERR){

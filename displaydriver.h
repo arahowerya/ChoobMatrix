@@ -12,8 +12,10 @@
 extern "C" {
 #endif
 
-void processDisplay(void);
+void displayInit(void);
 void loadDisplay(uint8_t *data);
+void processDisplay(void);
+
 
 #ifdef	__cplusplus
 }
