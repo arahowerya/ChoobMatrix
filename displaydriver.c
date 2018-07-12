@@ -11,7 +11,8 @@
 #include <string.h>
 
 #include <xc.h>
-#include <pic16f722a.h>
+//#include <pic16f722a.h>
+//#include <pic16f722.h>
 
 #include "pinout.h"
 #include "ascii7seg.h"
