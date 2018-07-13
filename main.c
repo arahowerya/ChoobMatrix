@@ -75,14 +75,12 @@ void ausart_init_synchronous(){
     TXSTAbits.SYNC  = 1; // Synchronous mode
     
     // Setup the Receive Status & Control Register (RCSTA)
-    RCSTAbits.SPEN  = 1; // Serial Port Enabled
+    RCSTAbits.SPEN  = 1; // Serial Port Enable bit
     RCSTAbits.RX9   = 0; // 9-bit Receive Enable bit
     RCSTAbits.SREN  = 1; // Single Receive Enable bit (1 = receive mode))
-    RCSTAbits.CREN  = 1; // Enable Continuous Receive Enable bit (1 = receive mode))
+    RCSTAbits.CREN  = 1; // Continuous Receive Enable bit (1 = receive mode))
     RCSTAbits.ADDEN = 0; //Address Detect Enable bit
-//    RCSTAbits.FERR // Framing Error bit
-//    RCSTAbits.OERR // Overrun Error bit
-//    RCSTAbits.RX9D // Ninth bit of Received data
+    /* Note: Setting CREN overrides SREN if enabled */
         
 }
 
@@ -93,11 +91,23 @@ void ausart_init_asynchronous(){
     TXSTAbits.BRGH  = 1; // Baud Rate generator
     
     // Setup the Receive Status & Control Register (RCSTA)
-    RCSTAbits.SPEN  = 1; // Serial Port Enabled
-    RCSTAbits.RX9   = 0; // 9-bit Receive Enable bit
+    RCSTAbits.SPEN  = 1; // Serial Port Enable bit
+    RCSTAbits.RX9   = 1; // 9-bit Receive Enable bit
     RCSTAbits.SREN  = 1; // Single Receive Enable bit (1 = receive mode))
-    RCSTAbits.CREN  = 1; // Enable Continuous Receive Enable bit (1 = receive mode))
-    RCSTAbits.ADDEN = 0; // Enable Address Detect Enable bit
+    RCSTAbits.CREN  = 1; // Continuous Receive Enable bit (1 = receive mode))
+    RCSTAbits.ADDEN = 1; // Address Detect Enable bit
+    /* Note: Setting CREN overrides SREN if enabled */
+    
+    /*
+     * Can set up address detection if we are able to send 9-bit data
+     * RX9 and ADDEN must be set. Send 9bits with MSB high, check remaining 8bits
+     * to see if byte contains device address. If so, disable ADDEN and listen for 
+     * remainder of message. Once message complete, set ADDEN high once more to
+     * start listening for next message.
+     * 
+     * When ADDEN=1, UART FIFO (and the RCIF interrupt) will only fill with data
+     * if rx'ed 9th bit is high, thus mitigating it listening to data it doesn't need. 
+     */
     
     // Set baud rate
     /* SBPRG = (Fosc)/(64x(Desired Baud Rate)) - 1
@@ -161,21 +171,21 @@ void interrupt isr_ausart(void){
             // Valid data received
             rcBuf[rcindex] = RCREG;
 
-//            if(rcBuf[rcindex] == MY_ADDRESS){
-//                RCSTAbits.ADDEN = 0;
-//            }
+            if(rcBuf[rcindex] == MY_ADDRESS){
+                /* Device has been addressed, listen for message data */
+                RCSTAbits.ADDEN = 0;
+            }
             
             PORTAbits.RA1 = 1;
             
             if(++rcindex >= MAX_RX_BYTES){ // increment string index
                 rcindex = 0;
-//                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
+                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
                 updateDisplay = 1;
             }
         } else if(RCSTAbits.OERR){
             RCSTAbits.CREN  = 0;
         }
-//        PIR1bits.RCIF = 0; // Reset interrupt flag
     }
  
 }
