@@ -139,7 +139,6 @@ int main(int argc, char** argv) {
     
     while(1)
     {
-<<<<<<< HEAD
         if(updateDisplay){
             updateDisplay = 0;
 //            loadDisplay(rcBuf);
@@ -149,22 +148,6 @@ int main(int argc, char** argv) {
         processDisplay();
         __delay_ms(2);
         muxInterrupt();
-=======
-//        if(updateDisplay){
-//            updateDisplay = 0;
-////            loadDisplay(rcBuf);
-//            NOP();
-//            PORTAbits.RA1 = 0;
-//        }
-//        
-        processDisplay(); //main function to poll the display driver for update
-        
-        //BODGE
-        //call mux timer interrupt from main loop with blocking delay
-        __delay_ms(2); 
-        muxInterrupt(); 
-        //ENDBODGE
->>>>>>> 657fb4345f6a0e1be21d12f4f27d65f1396c30c4
     }
     return (EXIT_SUCCESS);
 }
