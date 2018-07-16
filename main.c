@@ -21,8 +21,8 @@
  */
 
 // Defines
-#define MAX_RX_BYTES 3
-#define MY_ADDRESS   0xAB
+#define MAX_RX_BYTES 10
+#define MY_ADDRESS   0x00
 
 // Variables
 uint8_t volatile updateDisplay;
@@ -31,7 +31,7 @@ uint8_t rcBuf[MAX_RX_BYTES];
 // Function prototypes:
 void delay(int d);
 
-void variable_init(){
+void variable_init(void){
     updateDisplay = 0;
     memset(rcBuf, (int) 0, MAX_RX_BYTES);
 }
@@ -73,7 +73,7 @@ void gpio_init(void)
 void ausart_init_synchronous(){
 
     // Setup the Transmit Status & Control Register (TXSTA)
-    TXSTAbits.CSRC  = 0; // Slave mocde, clocked externally
+    TXSTAbits.CSRC  = 0; // Slave mode, clocked externally
     TXSTAbits.TX9   = 0; // 9-bit transmission
     TXSTAbits.TXEN  = 0; // Transmit enable bit
     TXSTAbits.SYNC  = 1; // Synchronous mode
@@ -88,7 +88,7 @@ void ausart_init_synchronous(){
         
 }
 
-void ausart_init_asynchronous(){
+void ausart_init_asynchronous(void){
 
     // Setup the Transmit Status & Control Register (TXSTA)
     TXSTAbits.SYNC  = 0; // Synchronous mode
@@ -96,10 +96,10 @@ void ausart_init_asynchronous(){
     
     // Setup the Receive Status & Control Register (RCSTA)
     RCSTAbits.SPEN  = 1; // Serial Port Enable bit
-    RCSTAbits.RX9   = 1; // 9-bit Receive Enable bit
+    RCSTAbits.RX9   = 0; // 9-bit Receive Enable bit
     RCSTAbits.SREN  = 1; // Single Receive Enable bit (1 = receive mode))
     RCSTAbits.CREN  = 1; // Continuous Receive Enable bit (1 = receive mode))
-    RCSTAbits.ADDEN = 1; // Address Detect Enable bit
+    RCSTAbits.ADDEN = 0; // Address Detect Enable bit
     /* Note: Setting CREN overrides SREN if enabled */
     
     /*
@@ -119,36 +119,48 @@ void ausart_init_asynchronous(){
     SPBRG = 25;
 }
 
-void ausart_isr_init(){
+void ausart_isr_init(void){
     // Activate ISR for receive mode
     PIE1bits.RCIE   = 1; // Receive Interrupt Enable
     INTCONbits.GIE  = 1; // Global Interrupts Enable
     INTCONbits.PEIE = 1; // PEripheral Interrupt Enable      
 }
 
-#define _XTAL_FREQ 8000000
+void timer2_init(void){
+    T2CONbits.TMR2ON = 1U;
+    T2CONbits.T2CKPS = 0b11;  /* 3 = Prescaler is 1/16*/
+    T2CONbits.TOUTPS = 0x0F;  /* 0x0f = 1:16 postscaler */
+    
+    PR2 = 0xff;
+}
 
 int main(int argc, char** argv) {
     
     ConfigureOscillator();
-//    variable_init();
+    variable_init();
     gpio_init();
-//    ausart_init_asynchronous();
-//    ausart_isr_init();
+    
+    /* UART setup */
+    ausart_init_asynchronous();
+    ausart_isr_init();
+    
+    /* Timer setup */
+//    timer2_init();
+    
     
     displayInit();
     
     // Port is set to output in gpio_init() - set high here
-//    PORTAbits.RA1 = 0;
+    PORTAbits.RA1 = 0;
     
     while(1)
     {
-//        if(updateDisplay){
-//            updateDisplay = 0;
-////            loadDisplay(rcBuf);
-//            NOP();
-//            PORTAbits.RA1 = 0;
-//        }
+        if(updateDisplay){
+            updateDisplay = 0;
+//            loadDisplay(rcBuf);
+            NOP();
+            PORTAbits.RA1 = 1;
+        }
         processDisplay();
         __delay_ms(2);
         muxInterrupt();
@@ -156,44 +168,33 @@ int main(int argc, char** argv) {
     return (EXIT_SUCCESS);
 }
 
-//
-//// Delay routine
-//void delay(int d)
-//{
-//    int i;  // Declare variable to be used in the loop
-//
-//    while(d)    // While d > 0
-//    {
-//        i = 100;    // set i to 100 for inner loop
-//        while(i--);    // while i > 0
-//
-//        d--;    // decrement d
-//    }
-//}
-//
-//void interrupt isr_ausart(void){
-//    static uint8_t rcindex = 0;
-//    if(PIR1bits.RCIF){
-//        // Check for Framing or Overrun Error
-//        if(!RCSTAbits.FERR && !RCSTAbits.OERR){
-//            // Valid data received
-//            rcBuf[rcindex] = RCREG;
-//
-//            if(rcBuf[rcindex] == MY_ADDRESS){
-//                /* Device has been addressed, listen for message data */
-//                RCSTAbits.ADDEN = 0;
-//            }
-//            
-//            PORTAbits.RA1 = 1;
-//            
-//            if(++rcindex >= MAX_RX_BYTES){ // increment string index
-//                rcindex = 0;
-//                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
-//                updateDisplay = 1;
-//            }
-//        } else if(RCSTAbits.OERR){
-//            RCSTAbits.CREN  = 0;
-//        }
-//    }
-// 
-//}
+void interrupt isr(void){
+    static uint8_t rcindex = 0;
+    if(PIR1bits.RCIF){
+        // Check for Framing or Overrun Error
+        if(!RCSTAbits.FERR && !RCSTAbits.OERR){
+            // Valid data received
+            rcBuf[rcindex] = RCREG;
+
+            if(rcBuf[rcindex] == MY_ADDRESS){
+                /* Device has been addressed, listen for message data */
+                RCSTAbits.ADDEN = 0;
+            }
+            
+            
+            if(++rcindex >= MAX_RX_BYTES){ // increment string index
+                rcindex = 0;
+                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
+                updateDisplay = 1;
+            }
+        } else if(RCSTAbits.OERR){
+            RCSTAbits.CREN  = 0;
+        }
+    }if(PIR1bits.TMR2IF){
+        PORTAbits.RA1 = 1;
+        NOP();
+    }
+    
+    PIR1bits.RCIF = 0;
+    PIR1bits.TMR2IF = 0;
+}
