@@ -46,7 +46,11 @@ void gpio_init(void)
     TRISAbits.TRISA5 = 0;
     TRISAbits.TRISA6 = 0;
     TRISAbits.TRISA7 = 0;
-    
+    ANSELA = 0;
+    ANSELB = 0;
+    ADCON0 = 0;
+    OPTION_REGbits.T0CS = 0;
+    ADCON1 = 0;
     TRISBbits.TRISB0 = 0;
     TRISBbits.TRISB1 = 0;
     TRISBbits.TRISB2 = 0;
@@ -122,70 +126,74 @@ void ausart_isr_init(){
     INTCONbits.PEIE = 1; // PEripheral Interrupt Enable      
 }
 
+#define _XTAL_FREQ 8000000
+
 int main(int argc, char** argv) {
     
     ConfigureOscillator();
-    variable_init();
+//    variable_init();
     gpio_init();
-    ausart_init_asynchronous();
-    ausart_isr_init();
+//    ausart_init_asynchronous();
+//    ausart_isr_init();
     
-//    displayInit();
+    displayInit();
     
     // Port is set to output in gpio_init() - set high here
-    PORTAbits.RA1 = 0;
+//    PORTAbits.RA1 = 0;
     
     while(1)
     {
-        if(updateDisplay){
-            updateDisplay = 0;
-//            loadDisplay(rcBuf);
-            NOP();
-            PORTAbits.RA1 = 0;
-        }
-//        processDisplay();
+//        if(updateDisplay){
+//            updateDisplay = 0;
+////            loadDisplay(rcBuf);
+//            NOP();
+//            PORTAbits.RA1 = 0;
+//        }
+        processDisplay();
+        __delay_ms(2);
+        muxInterrupt();
     }
     return (EXIT_SUCCESS);
 }
 
-
-// Delay routine
-void delay(int d)
-{
-    int i;  // Declare variable to be used in the loop
-
-    while(d)    // While d > 0
-    {
-        i = 100;    // set i to 100 for inner loop
-        while(i--);    // while i > 0
-
-        d--;    // decrement d
-    }
-}
-
-void interrupt isr_ausart(void){
-    static uint8_t rcindex = 0;
-    if(PIR1bits.RCIF){
-        // Check for Framing or Overrun Error
-        if(!RCSTAbits.FERR && !RCSTAbits.OERR){
-            // Valid data received
-            rcBuf[rcindex] = RCREG;
-
-            if(rcBuf[rcindex] == MY_ADDRESS){
-                /* Device has been addressed, listen for message data */
-                RCSTAbits.ADDEN = 0;
-            }
-            
-            PORTAbits.RA1 = 1;
-            
-            if(++rcindex >= MAX_RX_BYTES){ // increment string index
-                rcindex = 0;
-                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
-                updateDisplay = 1;
-            }
-        } else if(RCSTAbits.OERR){
-            RCSTAbits.CREN  = 0;
-        }
-    }
- 
-}
+//
+//// Delay routine
+//void delay(int d)
+//{
+//    int i;  // Declare variable to be used in the loop
+//
+//    while(d)    // While d > 0
+//    {
+//        i = 100;    // set i to 100 for inner loop
+//        while(i--);    // while i > 0
+//
+//        d--;    // decrement d
+//    }
+//}
+//
+//void interrupt isr_ausart(void){
+//    static uint8_t rcindex = 0;
+//    if(PIR1bits.RCIF){
+//        // Check for Framing or Overrun Error
+//        if(!RCSTAbits.FERR && !RCSTAbits.OERR){
+//            // Valid data received
+//            rcBuf[rcindex] = RCREG;
+//
+//            if(rcBuf[rcindex] == MY_ADDRESS){
+//                /* Device has been addressed, listen for message data */
+//                RCSTAbits.ADDEN = 0;
+//            }
+//            
+//            PORTAbits.RA1 = 1;
+//            
+//            if(++rcindex >= MAX_RX_BYTES){ // increment string index
+//                rcindex = 0;
+//                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
+//                updateDisplay = 1;
+//            }
+//        } else if(RCSTAbits.OERR){
+//            RCSTAbits.CREN  = 0;
+//        }
+//    }
+// 
+//}

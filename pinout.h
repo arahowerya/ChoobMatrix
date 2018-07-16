@@ -11,7 +11,8 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+#include <xc.h>
+    
 #define D3 PORTAbits.RA0
 #define D4 PORTAbits.RA1
 #define D5 PORTAbits.RA2

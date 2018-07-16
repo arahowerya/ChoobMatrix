@@ -15,6 +15,7 @@ extern "C" {
 void displayInit(void);
 void loadDisplay(uint8_t *data);
 void processDisplay(void);
+void muxInterrupt(void);
 
 
 #ifdef	__cplusplus
