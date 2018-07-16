@@ -1,2 +1,4 @@
 /dist/default/
 /build/default/
+*.mk
+*.bash
