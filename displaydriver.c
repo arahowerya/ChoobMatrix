@@ -57,6 +57,7 @@ void displayInit(void)
 
 void muxInterrupt(void)
 {
+    //To be called from timer to set multiplex frequency
     gD.muxFlag = 1U;
 }
 
@@ -78,6 +79,7 @@ void incNum(void)
 
 void enableDigit(uint8_t pos)
 {
+    //Enables the digit to be multiplexed. Switches all others off.
     D3 = 0;
     D4 = 0;
     D5 = 0;
@@ -108,6 +110,9 @@ void enableDigit(uint8_t pos)
 
 void muxDigit(uint8_t d1, uint8_t d2)
 {
+    //Sets output latches depending on bitwise code in the input digits.
+    //Sets the segments on or off for each digit.
+    //
     if((d1 & 0x80) > 0)
     {
         S1A = 1;
@@ -241,6 +246,9 @@ void muxDigit(uint8_t d1, uint8_t d2)
 
 void processDisplay(void)
 {
+    // When flag is set via timer interrupt
+    // increment the current digit to be multiplexed
+    // And enable the appropriate segments on the output
     if(gD.muxFlag == 1U)
     {
         gD.muxFlag = 0U;

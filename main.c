@@ -38,34 +38,18 @@ void variable_init(void){
 
 void gpio_init(void)
 {
-    TRISAbits.TRISA0 = 0;
-    TRISAbits.TRISA1 = 0;
-    TRISAbits.TRISA2 = 0;
-    TRISAbits.TRISA3 = 0;
-    TRISAbits.TRISA4 = 0;
-    TRISAbits.TRISA5 = 0;
-    TRISAbits.TRISA6 = 0;
-    TRISAbits.TRISA7 = 0;
-    ANSELA = 0;
-    ANSELB = 0;
-    ADCON0 = 0;
-    OPTION_REGbits.T0CS = 0;
-    ADCON1 = 0;
-    TRISBbits.TRISB0 = 0;
-    TRISBbits.TRISB1 = 0;
-    TRISBbits.TRISB2 = 0;
-    TRISBbits.TRISB3 = 0;
-    TRISBbits.TRISB4 = 0;
-    TRISBbits.TRISB5 = 0;
-    TRISBbits.TRISB6 = 0;
-    TRISBbits.TRISB7 = 0;
+    TRISA = 0;  //PORTA = outputs
+    ANSELA = 0; //No Analog on PORTA
+    ANSELB = 0; //No Analog on PORTB
     
-    TRISCbits.TRISC0 = 0;
-    TRISCbits.TRISC1 = 0;
-    TRISCbits.TRISC2 = 0;
+    ADCON0 = 0; //Disable all analog settings
+    ADCON1 = 0;
+    
+    OPTION_REGbits.T0CS = 0; //Diable RA4 Tmr0
+    
+    TRISB = 0; //PORTB = outputs
+    TRISC = 0; //PORTC = Outputs.... except:
     TRISCbits.TRISC3 = 1;
-    TRISCbits.TRISC4 = 0;
-    TRISCbits.TRISC5 = 0;
     TRISCbits.TRISC6 = 1;
     TRISCbits.TRISC7 = 1;
 }
@@ -155,6 +139,7 @@ int main(int argc, char** argv) {
     
     while(1)
     {
+<<<<<<< HEAD
         if(updateDisplay){
             updateDisplay = 0;
 //            loadDisplay(rcBuf);
@@ -164,6 +149,22 @@ int main(int argc, char** argv) {
         processDisplay();
         __delay_ms(2);
         muxInterrupt();
+=======
+//        if(updateDisplay){
+//            updateDisplay = 0;
+////            loadDisplay(rcBuf);
+//            NOP();
+//            PORTAbits.RA1 = 0;
+//        }
+//        
+        processDisplay(); //main function to poll the display driver for update
+        
+        //BODGE
+        //call mux timer interrupt from main loop with blocking delay
+        __delay_ms(2); 
+        muxInterrupt(); 
+        //ENDBODGE
+>>>>>>> 657fb4345f6a0e1be21d12f4f27d65f1396c30c4
     }
     return (EXIT_SUCCESS);
 }
