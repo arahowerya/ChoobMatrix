@@ -2,3 +2,4 @@
 /build/default/
 *.mk
 *.bash
+/nbproject/private/private.xml
