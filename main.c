@@ -98,9 +98,11 @@ void ausart_init_asynchronous(void){
      */
     
     // Set baud rate
-    /* SBPRG = (Fosc)/(64x(Desired Baud Rate)) - 1
+    /* SBPRG = (Fosc)/(16x(Desired Baud Rate)) - 1
      * For a baud rate of 19200, Fosc=8MHz = 25.04 */
-    SPBRG = 25;
+//    SPBRG = 25;
+     /* For a baud rate of 19200, Fosc=16MHz = 51 */
+    SPBRG = 51;
 }
 
 void ausart_isr_init(void){
@@ -175,8 +177,8 @@ void interrupt isr(void){
             RCSTAbits.CREN  = 0;
         }
     }if(PIR1bits.TMR2IF){
-        PORTAbits.RA1 = 1;
-        NOP();
+//        PORTAbits.RA1 = 1;
+//        NOP();
     }
     
     PIR1bits.RCIF = 0;
