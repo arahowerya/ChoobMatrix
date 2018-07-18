@@ -12,12 +12,25 @@
 extern "C" {
 #endif
 #include <xc.h>
-    
+
+
+#define D1off do{PORTBbits.RB7 = 0;} while(PORTBbits.RB7 == 1)
+#define D2off do{PORTBbits.RB6 = 0;} while(PORTBbits.RB6 == 1)
+#define D3off do{PORTAbits.RA0 = 0;} while(PORTAbits.RA0 == 1)
+#define D4off do{PORTAbits.RA1 = 0;} while(PORTAbits.RA1 == 1)
+#define D5off do{PORTAbits.RA2 = 0;} while(PORTAbits.RA2 == 1)
+
+#define D1on do{PORTBbits.RB7 = 1;} while(PORTBbits.RB7 == 0)
+#define D2on do{PORTBbits.RB6 = 1;} while(PORTBbits.RB6 == 0)
+#define D3on do{PORTAbits.RA0 = 1;} while(PORTAbits.RA0 == 0)
+#define D4on do{PORTAbits.RA1 = 1;} while(PORTAbits.RA1 == 0)
+#define D5on do{PORTAbits.RA2 = 1;} while(PORTAbits.RA2 == 0)
+
+#define D1 PORTBbits.RB7
+#define D2 PORTBbits.RB6
 #define D3 PORTAbits.RA0
 #define D4 PORTAbits.RA1
 #define D5 PORTAbits.RA2
-#define D2 PORTBbits.RB6
-#define D1 PORTBbits.RB7
     
 #define S1A PORTCbits.RC2
 #define S1B PORTCbits.RC0

@@ -12,9 +12,12 @@
 extern "C" {
 #endif
 
-void displayInit(void);
+void initialise_display(void);
 void loadDisplay(uint8_t *data);
 void processDisplay(void);
+
+void set_mux_frequency(uint16_t hz);
+uint16_t get_mux_timer_reload(void);
 void muxInterrupt(void);
 
 

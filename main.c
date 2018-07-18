@@ -14,6 +14,7 @@
 
 #include "displaydriver.h"
 #include "system.h"
+#include "pinout.h"
 
 
 /*
@@ -28,8 +29,6 @@
 uint8_t volatile updateDisplay;
 uint8_t rcBuf[MAX_RX_BYTES];
 
-// Function prototypes:
-void delay(int d);
 
 void variable_init(void){
     updateDisplay = 0;
@@ -40,18 +39,20 @@ void gpio_init(void)
 {
     TRISA = 0;  //PORTA = outputs
     ANSELA = 0; //No Analog on PORTA
-    ANSELB = 0; //No Analog on PORTB
-    
-    ADCON0 = 0; //Disable all analog settings
-    ADCON1 = 0;
     
     OPTION_REGbits.T0CS = 0; //Diable RA4 Tmr0
     
     TRISB = 0; //PORTB = outputs
+    ANSELB = 0; //No Analog on PORTB
     TRISC = 0; //PORTC = Outputs.... except:
     TRISCbits.TRISC3 = 1;
     TRISCbits.TRISC6 = 1;
     TRISCbits.TRISC7 = 1;
+    
+    
+    ADCON0 = 0; //Disable all analog settings
+    ADCON1 = 0;
+    
 }
 
 void ausart_init_synchronous(){
@@ -112,51 +113,48 @@ void ausart_isr_init(void){
     INTCONbits.PEIE = 1; // PEripheral Interrupt Enable      
 }
 
-void timer2_init(void){
-    T2CONbits.TMR2ON = 1U;
-    T2CONbits.T2CKPS = 0b11;  /* 3 = Prescaler is 1/16*/
-    T2CONbits.TOUTPS = 0x0F;  /* 0x0f = 1:16 postscaler */
-    
-    PR2 = 0xff;
+void timer1_init(void)
+{
+
+    T1CONbits.TMR1CS = 0b00;  /* Source is FOSC/4 */
+    T1CONbits.T1CKPS = 0b11;  /* 1:8 prescale */
+    T1CONbits.T1OSCEN = 0;  /* Oscillator Disable */
+    T1GCONbits.TMR1GE = 0;  /*Gate is disabled*/
+
+    T1CONbits.TMR1ON = 1U;
+    PIE1bits.TMR1IE = 1U;
+    INTCONbits.PEIE = 1U;
+    INTCONbits.GIE = 1U;
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     
     ConfigureOscillator();
-    variable_init();
+//    variable_init();
     gpio_init();
     
+    
     /* UART setup */
-    ausart_init_asynchronous();
-    ausart_isr_init();
+//    ausart_init_asynchronous();
+//    ausart_isr_init();
     
     /* Timer setup */
-//    timer2_init();
-    
-    
-    displayInit();
-    
-    // Port is set to output in gpio_init() - set high here
-    PORTAbits.RA1 = 0;
+    timer1_init();
+    initialise_display();
+   
     
     while(1)
     {
-        if(updateDisplay){
-            updateDisplay = 0;
-//            loadDisplay(rcBuf);
-            NOP();
-            PORTAbits.RA1 = 1;
-        }
         processDisplay();
-        __delay_ms(2);
-        muxInterrupt();
-    }
-    return (EXIT_SUCCESS);
+    } 
+   return (EXIT_SUCCESS);
 }
 
 void interrupt isr(void){
     static uint8_t rcindex = 0;
-    if(PIR1bits.RCIF){
+    if(PIR1bits.RCIF)
+    {
         // Check for Framing or Overrun Error
         if(!RCSTAbits.FERR && !RCSTAbits.OERR){
             // Valid data received
@@ -176,11 +174,28 @@ void interrupt isr(void){
         } else if(RCSTAbits.OERR){
             RCSTAbits.CREN  = 0;
         }
-    }if(PIR1bits.TMR2IF){
+    }
+    if(PIR1bits.TMR1IF){
 //        PORTAbits.RA1 = 1;
 //        NOP();
+        muxInterrupt();
+        TMR1 = get_mux_timer_reload();
     }
     
     PIR1bits.RCIF = 0;
-    PIR1bits.TMR2IF = 0;
+    PIR1bits.TMR1IF = 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,8 +16,8 @@ oscillator configurations. */
 void ConfigureOscillator(void)
 {
     /* TODO Add clock switching code if appropriate.  */
-//    OSCCONbits.IRCF = 2U; // 2 = 10 = 8MHz (POR value)
-    OSCCONbits.IRCF = 3U; // 3 = 11 = 16MHz
+    // OSCCONbits.IRCF = 2U; // 2 = 10 = 8MHz (POR value)
+	OSCCONbits.IRCF = 3U; // 3 = 11 = 16MHz
     /* Typical actions in this function are to tweak the oscillator tuning
     register, select new clock sources, and to wait until new clock sources
     are stable before resuming execution of the main project. */
