@@ -175,13 +175,8 @@ void interrupt isr(void){
     }
     if(PIR1bits.TMR1IF){
 //        PORTAbits.RA1 = 1;
-<<<<<<< HEAD
-//        NOP();
         muxInterrupt();
         TMR1 = get_mux_timer_reload();
-=======
-        NOP();
->>>>>>> 3f0beb77ea0f9eee7832894405cb596542f468ee
     }
     
     PIR1bits.RCIF = 0;

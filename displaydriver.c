@@ -62,9 +62,11 @@ void initialise_display(void)
     gD.num = 0;
     
 //    gD.mux_timer_reload_val = 30000;
-    set_mux_frequency(40);
+    set_mux_frequency(59);
     
-    uint8_t initData[10] = {'9','8','7','6','5','4','3','2','1','0'}; //{0,0,0,0,0,0,0,0,0,0};//
+    uint8_t initData[10] = {'9','8','7','6','5','4','3','2','1','0'}; //
+//    uint8_t initData[10] = {0,0,0,0,0,0,0,0,0,0};//
+//    uint8_t initData[10] = {1,1,0,1,1,1,1,0,1,1};//
 
     load_frame_buffer(initData);
 }
@@ -91,6 +93,14 @@ void muxInterrupt(void)
 //     load_frame_buffer(data);
 // }
 
+void disable_digits(void)
+{    
+        D1off;
+        D2off;
+        D3off;
+        D4off;
+        D5off;
+}
 
 void enable_digit(uint8_t pos)
 {
@@ -102,45 +112,25 @@ void enable_digit(uint8_t pos)
     case(0):
     {
         D1on;
-        D2off;
-        D3off;
-        D4off;
-        D5off;
         return;
     }
     case(1):
     {
-        D1off;
         D2on;
-        D3off;
-        D4off;
-        D5off;
         return;
     }
     case(2):
     {
-        D1off;
-        D2off;
         D3on;
-        D4off;
-        D5off;
         return;
     }
     case(3):
     {
-        D1off;
-        D2off;
-        D3off;
         D4on;
-        D5off;
         return;
     }
     case(4):
     {
-        D1off;
-        D2off;
-        D3off;
-        D4off;
         D5on;
         return;
     }
@@ -155,132 +145,132 @@ void enable_segments_for_digits(uint8_t d1, uint8_t d2)
     //
     if((d1 & 0x80) > 0)
     {
-        S1A = 1;
+        S1Aon;
     }
     else
     {
-        S1A = 0;
+        S1Aoff;
     }
     if((d1 & 0x40) > 0)
     {
-        S1B = 1;
+        S1Bon;
     }
     else
     {
-        S1B = 0;
+        S1Boff;
     }
     if((d1 & 0x20) > 0)
     {
-        S1C = 1;
+        S1Con;
     }
     else
     {
-        S1C = 0;
+        S1Coff;
     }
     if((d1 & 0x10) > 0)
     {
-        S1D = 1;
+        S1Don;
     }
     else
     {
-        S1D = 0;
+        S1Doff;
     }
     if((d1 & 0x08) > 0)
     {
-        S1E = 1;
+        S1Eon;
     }
     else
     {
-        S1E = 0;
+        S1Eoff;
     }
     if((d1 & 0x04) > 0)
     {
-        S1F = 1;
+        S1Fon;
     }
     else
     {
-        S1F = 0;
+        S1Foff;
     }
     if((d1 & 0x02) > 0)
     {
-        S1G = 1;
+        S1Gon;
     }
     else
     {
-        S1G = 0;
+        S1Goff;
     }
     if((d1 & 0x01) > 0)
     {
-        S1DP = 1;
+        S1DPon;
     }
     else
     {
-        S1DP = 0;
+        S1DPoff;
     }
     
     if((d2 & 0x80) > 0)
     {
-        S2A = 1;
+        S2Aon;
     }
     else
     {
-        S2A = 0;
+        S2Aoff;
     }
     if((d2 & 0x40) > 0)
     {
-        S2B = 1;
+        S2Bon;
     }
     else
     {
-        S2B = 0;
+        S2Boff;
     }
     if((d2 & 0x20) > 0)
     {
-        S2C = 1;
+        S2Con;
     }
     else
     {
-        S2C = 0;
+        S2Coff;
     }
     if((d2 & 0x10) > 0)
     {
-        S2D = 1;
+        S2Don;
     }
     else
     {
-        S2D = 0;
+        S2Doff;
     }
     if((d2 & 0x08) > 0)
     {
-        S2E = 1;
+        S2Eon;
     }
     else
     {
-        S2E = 0;
+        S2Eoff;
     }
     if((d2 & 0x04) > 0)
     {
-        S2F = 1;
+        S2Fon;
     }
     else
     {
-        S2F = 0;
+        S2Foff;
     }
     if((d2 & 0x02) > 0)
     {
-        S2G = 1;
+        S2Gon;
     }
     else
     {
-        S2G = 0;
+        S2Goff;
     }
     if((d2 & 0x01) > 0)
     {
-        S2DP = 1;
+        S2DPon;
     }
     else
     {
-        S2DP = 0;
+        S2DPoff;
     }
 }
 
@@ -296,8 +286,9 @@ void processDisplay(void)
         {
             gD.active_mux_digit = 0;
         }
-        enable_digit(gD.active_mux_digit);
+        disable_digits();
         enable_segments_for_digits(gD.frame_buffer_7seg[gD.active_mux_digit], gD.frame_buffer_7seg[9-gD.active_mux_digit]);
+        enable_digit(gD.active_mux_digit);
     }
 }
 
