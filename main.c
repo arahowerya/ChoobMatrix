@@ -1,6 +1,6 @@
 /* 
  * File:   main.c
- * Author: kilian
+ * Author: the lads
  *
  * Created on July 8, 2018, 12:45 PM
  */
@@ -9,19 +9,17 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include <xc.h>
 
 #include "displaydriver.h"
 #include "system.h"
-
 
 /*
  * 
  */
 
 // Defines
-#define MAX_RX_BYTES 10
+#define MAX_RX_BYTES 10U
 #define MY_ADDRESS   0x00
 
 // Variables
@@ -45,7 +43,7 @@ void gpio_init(void)
     ADCON0 = 0; //Disable all analog settings
     ADCON1 = 0;
     
-    OPTION_REGbits.T0CS = 0; //Diable RA4 Tmr0
+    OPTION_REGbits.T0CS = 0; //Disable RA4 Timer0
     
     TRISB = 0; //PORTB = outputs
     TRISC = 0; //PORTC = Outputs.... except:
@@ -100,9 +98,9 @@ void ausart_init_asynchronous(void){
     // Set baud rate
     /* SBPRG = (Fosc)/(16x(Desired Baud Rate)) - 1
      * For a baud rate of 19200, Fosc=8MHz = 25.04 */
-//    SPBRG = 25;
+    SPBRG = 25;
      /* For a baud rate of 19200, Fosc=16MHz = 51 */
-    SPBRG = 51;
+//    SPBRG = 51;
 }
 
 void ausart_isr_init(void){
@@ -132,12 +130,11 @@ int main(int argc, char** argv) {
     
     /* Timer setup */
 //    timer2_init();
-    
-    
+       
     displayInit();
     
     // Port is set to output in gpio_init() - set high here
-    PORTAbits.RA1 = 0;
+//    PORTAbits.RA1 = 0;
     
     while(1)
     {
@@ -145,7 +142,7 @@ int main(int argc, char** argv) {
             updateDisplay = 0;
 //            loadDisplay(rcBuf);
             NOP();
-            PORTAbits.RA1 = 1;
+//            PORTAbits.RA1 = 1;
         }
         processDisplay();
         __delay_ms(2);
@@ -164,13 +161,13 @@ void interrupt isr(void){
 
             if(rcBuf[rcindex] == MY_ADDRESS){
                 /* Device has been addressed, listen for message data */
-                RCSTAbits.ADDEN = 0;
+//                RCSTAbits.ADDEN = 0;
             }
             
             
             if(++rcindex >= MAX_RX_BYTES){ // increment string index
                 rcindex = 0;
-                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
+//                RCSTAbits.ADDEN = 1; /* message over - listen for address again*/
                 updateDisplay = 1;
             }
         } else if(RCSTAbits.OERR){
@@ -178,7 +175,7 @@ void interrupt isr(void){
         }
     }if(PIR1bits.TMR2IF){
 //        PORTAbits.RA1 = 1;
-//        NOP();
+        NOP();
     }
     
     PIR1bits.RCIF = 0;
