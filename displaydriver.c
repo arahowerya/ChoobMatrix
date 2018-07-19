@@ -52,6 +52,8 @@ uint16_t get_mux_timer_reload(void)
 
 void set_mux_frequency(uint16_t hz)
 {
+    if(hz < 6)
+        hz = 6;
     gD.mux_timer_reload_val = (uint16_t)(65536L - (100000L/hz));
 }
 
@@ -72,8 +74,8 @@ void initialise_display(void)
 }
 
 
-void muxInterrupt(void)
-{
+void muxInterrupt(void){
+
     //To be called from timer to set multiplex frequency
     gD.mux_ready_flag = 1;
 }
