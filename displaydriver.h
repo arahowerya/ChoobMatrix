@@ -14,6 +14,7 @@ extern "C" {
 
 void initialise_display(void);
 void loadDisplay(uint8_t *data);
+void load_frame_buffer(uint8_t *data);
 void processDisplay(void);
 
 void set_mux_frequency(uint16_t hz);
