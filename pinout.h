@@ -21,7 +21,7 @@ extern "C" {
 #define D5off do{PORTAbits.RA2 = 0;} while(PORTAbits.RA2 == 1)
 
 #define D1on do{PORTBbits.RB7 = 1;} while(PORTBbits.RB7 == 0)
-#define D2on do{PORTBbits.RB6 = 1;} while(PORTBbits.RB6 == 0)
+#define D2on PORTBbits.RB6 = 1 //do{PORTBbits.RB6 = 1;} while(PORTBbits.RB6 == 0)
 #define D3on do{PORTAbits.RA0 = 1;} while(PORTAbits.RA0 == 0)
 #define D4on do{PORTAbits.RA1 = 1;} while(PORTAbits.RA1 == 0)
 #define D5on do{PORTAbits.RA2 = 1;} while(PORTAbits.RA2 == 0)

@@ -21,7 +21,7 @@
 
 // Defines
 #define MAX_RX_BYTES 11U
-#define MY_ADDRESS   0x05
+#define MY_ADDRESS   8U
 
 // Variables
 uint8_t volatile updateDisplay;
@@ -40,9 +40,9 @@ void gpio_init(void) {
 
     OPTION_REGbits.T0CS = 0; //Disable RA4 Timer0
 
-    TRISB = 0; //PORTB = outputs
+    TRISB = 0;  //PORTB = outputs
     ANSELB = 0; //No Analog on PORTB
-    TRISC = 0; //PORTC = Outputs.... except:
+    TRISC = 0;  //PORTC = Outputs.... except:
     TRISCbits.TRISC3 = 1;
     TRISCbits.TRISC6 = 1;
     TRISCbits.TRISC7 = 1;
@@ -63,10 +63,10 @@ void ausart_init_synchronous() {
 
     // Setup the Receive Status & Control Register (RCSTA)
     RCSTAbits.SPEN  = 1;    // Serial Port Enable bit
-    RCSTAbits.RX9   = 1;    // 9-bit Receive Enable bit
+    RCSTAbits.RX9   = 0;    // 9-bit Receive Enable bit
     RCSTAbits.SREN  = 1;    // Single Receive Enable bit (1 = receive mode))
     RCSTAbits.CREN  = 1;    // Continuous Receive Enable bit (1 = receive mode))
-    RCSTAbits.ADDEN = 1;    //Address Detect Enable bit
+    RCSTAbits.ADDEN = 0;    // Address Detect Enable bit
     /* Note: Setting CREN overrides SREN if enabled */
 
 }
@@ -145,6 +145,7 @@ int main(int argc, char** argv) {
             updateDisplay = 0U;
             NOP();
             load_frame_buffer(&rcBuf[1]);
+            memset(rcBuf, (int) 0, MAX_RX_BYTES);
         }
         processDisplay();
     }
@@ -154,15 +155,24 @@ int main(int argc, char** argv) {
 void interrupt isr(void) {
     static uint8_t rcindex = 0;
     if (PIR1bits.RCIF) {
+        PIR1bits.RCIF = 0;
         // Check for Framing or Overrun Error
-        if (!RCSTAbits.FERR && !RCSTAbits.OERR) {
+        if ((RCSTAbits.FERR == 0U) && (RCSTAbits.OERR == 0U)) {
             // Valid data received
+            
+            if(RCREG < 10U)
+            {
+                rcindex = 0;
+            }
+            
             rcBuf[rcindex] = RCREG;
-
+            
             if (rcBuf[0] == MY_ADDRESS) {
                 /* Device has been addressed, listen for message data */
-                RCSTAbits.ADDEN = 0U;
+//                RCSTAbits.ADDEN = 0U;
                 listenForPayload = 1U;
+            } else {
+                rcindex = 0U;
             }
 
 
@@ -170,24 +180,22 @@ void interrupt isr(void) {
                 if (++rcindex >= MAX_RX_BYTES) { // increment string index
                     rcindex = 0U;
                     listenForPayload = 0U;
-                    RCSTAbits.ADDEN = 1U; /* message over - listen for address again*/
-                    updateDisplay = 1U;               
+                    updateDisplay = 1U;  
+//                    RCSTAbits.ADDEN = 1U; /* message over - listen for address again*/                             
                 }
             }
         } 
         else 
         {
-            RCSTAbits.CREN = 0; 
-            RCSTAbits.FERR = 0;
-            RCSTAbits.OERR = 0;
+            RCSTAbits.CREN = 0;
+            RCSTAbits.CREN = 1;
         }
     }
     if (PIR1bits.TMR1IF) {
+        PIR1bits.TMR1IF = 0;
         //        PORTAbits.RA1 = 1;
         muxInterrupt();
         TMR1 = get_mux_timer_reload();
     }
-
-    PIR1bits.RCIF = 0;
-    PIR1bits.TMR1IF = 0;
+    
 }
