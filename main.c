@@ -16,7 +16,7 @@
 #include "pinout.h"
 
 /*
- * 
+ * Dublin Maker 2018 - ChoobMatrix
  */
 
 // Defines
@@ -35,14 +35,14 @@ void variable_init(void) {
 }
 
 void gpio_init(void) {
-    TRISA = 0; //PORTA = outputs
-    ANSELA = 0; //No Analog on PORTA
+    TRISA   = 0; //PORTA = outputs
+    ANSELA  = 0; //No Analog on PORTA
 
     OPTION_REGbits.T0CS = 0; //Disable RA4 Timer0
 
-    TRISB = 0;  //PORTB = outputs
-    ANSELB = 0; //No Analog on PORTB
-    TRISC = 0;  //PORTC = Outputs.... except:
+    TRISB   = 0;    //PORTB = outputs
+    ANSELB  = 0;    //No Analog on PORTB
+    TRISC   = 0;    //PORTC = Outputs.... except:
     TRISCbits.TRISC3 = 1;
     TRISCbits.TRISC6 = 1;
     TRISCbits.TRISC7 = 1;
@@ -130,7 +130,6 @@ int main(int argc, char** argv) {
     variable_init();
     gpio_init();
 
-
     /* UART setup */
     ausart_init_synchronous();
     ausart_isr_init();
@@ -143,7 +142,6 @@ int main(int argc, char** argv) {
     while (1) {
         if(updateDisplay){
             updateDisplay = 0U;
-            NOP();
             load_frame_buffer(&rcBuf[1]);
             memset(rcBuf, (int) 0, MAX_RX_BYTES);
         }
@@ -156,9 +154,9 @@ void interrupt isr(void) {
     static uint8_t rcindex = 0;
     if (PIR1bits.RCIF) {
         PIR1bits.RCIF = 0;
-        // Check for Framing or Overrun Error
+        /* Check for Framing or Overrun Error */
         if ((RCSTAbits.FERR == 0U) && (RCSTAbits.OERR == 0U)) {
-            // Valid data received
+            /* Valid data received */
             
             if(RCREG < 10U)
             {
@@ -193,7 +191,6 @@ void interrupt isr(void) {
     }
     if (PIR1bits.TMR1IF) {
         PIR1bits.TMR1IF = 0;
-        //        PORTAbits.RA1 = 1;
         muxInterrupt();
         TMR1 = get_mux_timer_reload();
     }

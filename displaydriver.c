@@ -54,17 +54,17 @@ void set_mux_frequency(uint16_t hz)
 {
     if(hz < 6)
         hz = 6;
-    gD.mux_timer_reload_val = (uint16_t)(65536L - (100000L/hz));
+    gD.mux_timer_reload_val = (uint16_t)(65535L - (100000L/hz));
 }
 
 void initialise_display(void)
 {
     gD.active_mux_digit = 0;
-    gD.mux_ready_flag = 1;
+    gD.mux_ready_flag   = 1U;
     gD.num = 0;
     
 //    gD.mux_timer_reload_val = 30000;
-    set_mux_frequency(59);
+    set_mux_frequency(59U);
     
     uint8_t initData[10] = {'9','8','7','6','5','4','3','2','1','0'}; //
 //    uint8_t initData[10] = {0,0,0,0,0,0,0,0,0,0};//
@@ -77,7 +77,7 @@ void initialise_display(void)
 void muxInterrupt(void){
 
     //To be called from timer to set multiplex frequency
-    gD.mux_ready_flag = 1;
+    gD.mux_ready_flag = 1U;
 }
 
 
@@ -281,15 +281,16 @@ void processDisplay(void)
     // When flag is set via timer interrupt
     // increment the current digit to be multiplexed
     // And enable the appropriate segments on the output
-    if(gD.mux_ready_flag >= 1)
+    if(gD.mux_ready_flag >= 1U)
     {
-        gD.mux_ready_flag = 0;
-        if(gD.active_mux_digit++ >= 4) //Set mux in cycles of 5 digits
+        gD.mux_ready_flag = 0U;
+        if(gD.active_mux_digit++ >= 4U) //Set mux in cycles of 5 digits
         {
-            gD.active_mux_digit = 0;
+            gD.active_mux_digit = 0U;
         }
         disable_digits();
-        enable_segments_for_digits(gD.frame_buffer_7seg[gD.active_mux_digit], gD.frame_buffer_7seg[9-gD.active_mux_digit]);
+        enable_segments_for_digits(gD.frame_buffer_7seg[gD.active_mux_digit], 
+                gD.frame_buffer_7seg[9U-gD.active_mux_digit]);
         enable_digit(gD.active_mux_digit);
     }
 }
