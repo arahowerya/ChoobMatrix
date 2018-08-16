@@ -1,0 +1,44 @@
+
+# 1 "mcc_generated_files/device_config.c"
+
+
+# 50
+#pragma config WDTEN = OFF
+#pragma config PLLDIV = 1
+#pragma config CFGPLLEN = ON
+#pragma config STVREN = ON
+#pragma config XINST = OFF
+
+
+#pragma config CP0 = OFF
+
+
+#pragma config OSC = INTOSCPLL
+#pragma config SOSCSEL = DIG
+#pragma config CLKOEC = OFF
+#pragma config FCMEN = ON
+#pragma config IESO = ON
+
+
+#pragma config WDTPS = 32768
+
+
+#pragma config DSWDTOSC = INTOSCREF
+#pragma config RTCOSC = T1OSCREF
+#pragma config DSBOREN = ON
+#pragma config DSWDTEN = ON
+#pragma config DSWDTPS = G2
+
+
+#pragma config IOL1WAY = ON
+#pragma config ADCSEL = BIT10
+#pragma config PLLSEL = PLL4X
+#pragma config MSSP7B_EN = MSK7
+
+
+#pragma config WPFP = PAGE_127
+#pragma config WPCFG = OFF
+
+
+#pragma config WPDIS = OFF
+#pragma config WPEND = PAGE_WPFP

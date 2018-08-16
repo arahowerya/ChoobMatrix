@@ -1,0 +1,51 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"50 mcc_generated_files/device_config.c
+[p x WDTEN=OFF ]
+"51
+[p x PLLDIV=1 ]
+"52
+[p x CFGPLLEN=ON ]
+"53
+[p x STVREN=ON ]
+"54
+[p x XINST=OFF ]
+"57
+[p x CP0=OFF ]
+"60
+[p x OSC=INTOSCPLL ]
+"61
+[p x SOSCSEL=DIG ]
+"62
+[p x CLKOEC=OFF ]
+"63
+[p x FCMEN=ON ]
+"64
+[p x IESO=ON ]
+"67
+[p x WDTPS=32768 ]
+"70
+[p x DSWDTOSC=INTOSCREF ]
+"71
+[p x RTCOSC=T1OSCREF ]
+"72
+[p x DSBOREN=ON ]
+"73
+[p x DSWDTEN=ON ]
+"74
+[p x DSWDTPS=G2 ]
+"77
+[p x IOL1WAY=ON ]
+"78
+[p x ADCSEL=BIT10 ]
+"79
+[p x PLLSEL=PLL4X ]
+"80
+[p x MSSP7B_EN=MSK7 ]
+"83
+[p x WPFP=PAGE_127 ]
+"84
+[p x WPCFG=OFF ]
+"87
+[p x WPDIS=OFF ]
+"88
+[p x WPEND=PAGE_WPFP ]
